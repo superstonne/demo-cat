@@ -3,6 +3,7 @@ package com.example.servicea.servicea.controller;
 import com.dianping.cat.Cat;
 import com.dianping.cat.message.Transaction;
 import com.example.servicea.servicea.context.CatContextImpl;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class HelloController {
 
     private Logger logger = LoggerFactory.getLogger(HelloController.class);
 
+    @HystrixCommand
     @GetMapping("/hello")
     public String helloB() {
         Transaction t = Cat.newTransaction("URL", "hello");
@@ -53,5 +55,10 @@ public class HelloController {
         }
 
         return msg;
+    }
+
+    @GetMapping("/shello")
+    public String sHello() {
+        return "hello";
     }
 }
